@@ -1,0 +1,9 @@
+看BlockingQueue的时候，疑问：它是阻塞的，那么取和放是否互斥的，
+于是在idea的diagram找到它的实现类： ArrayBlockingQueue，发现zz这个实现类实际就是生产消费者模型的实现， 
+摘录实现类源码的file字段证明：
+//这是可重入锁，说明生产和消费只能一个正在进行
+    final ReentrantLock lock;
+ //这个则是需要非空才能消费
+    private final Condition notEmpty;
+这个则是需要非满才能放入 
+    private final Condition notFull;
